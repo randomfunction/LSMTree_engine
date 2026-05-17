@@ -1,19 +1,53 @@
 # LSM-Tree Key-Value Storage Engine
 
-This project is a simplified, single-threaded LSM-Tree storage engine written in C++.
+A simplified, single-threaded key-value storage engine in C++ based on core LSM-Tree ideas.
 
-I built it step by step to understand how a storage engine works behind the scenes. The goal was not to make it ultra fast or production-ready. The goal was to keep it clean, readable, and easy to learn from.
+This project was built to show a clear understanding of how modern storage engines handle writes, reads, recovery, and on-disk data organization. The implementation is intentionally simple and educational, but it still includes the main building blocks that make an LSM-based design work.
 
-It supports:
+## What This Project Shows
 
-- in-memory writes using a `MemTable`
+- sorted in-memory writes using a `MemTable`
 - durable writes using a `Write-Ahead Log (WAL)`
-- flushing sorted data to disk as `SSTable` files
-- point reads from both memory and disk
-- tombstones for delete operations
-- Bloom Filters to skip unnecessary SSTable reads
+- flushing in-memory data to disk as immutable `SSTable` files
+- point lookups across memory and disk
+- delete handling through tombstones
+- Bloom Filter based SSTable skipping
 - basic size-tiered compaction
-- recovery after restart using the WAL
+- recovery after restart by replaying the WAL
+
+## Design Overview
+
+### Write Path
+
+For each write:
+
+1. append the operation to the WAL
+2. update the in-memory MemTable
+3. flush the MemTable to a new SSTable when it reaches a small threshold
+
+This keeps writes durable while also making them fast and simple.
+
+### Read Path
+
+For each read:
+
+1. check the MemTable first
+2. if not found, check SSTables from newest to oldest
+3. use the Bloom Filter to skip SSTables that definitely do not contain the key
+4. use the SSTable index to seek to the correct record offset
+
+### Delete Handling
+
+Deletes are stored as tombstones instead of removing data immediately. During compaction, older values are dropped and tombstoned keys can be removed from the final merged output.
+
+### Recovery
+
+On startup, the engine:
+
+1. loads the manifest file
+2. restores the active SSTable list
+3. replays the WAL
+4. rebuilds the MemTable state in memory
 
 ## Project Structure
 
@@ -32,44 +66,10 @@ src/
   bloom_filter.cpp
   lsm_engine.cpp
   main.cpp
-  readme_test.cpp
+  small_test.cpp
 ```
 
-## How It Works
-
-### 1. Write Path
-
-When a key is written:
-
-1. The engine first appends the operation to the WAL file.
-2. Then it updates the MemTable in memory.
-3. If the MemTable reaches a small threshold, it is flushed to disk as an SSTable.
-
-This order matters because the WAL helps recover data if the program stops unexpectedly.
-
-### 2. Read Path
-
-When a key is requested:
-
-1. The engine checks the MemTable first.
-2. If the key is not there, it checks SSTables from newest to oldest.
-3. Before opening a full SSTable lookup, it checks the Bloom Filter.
-
-### 3. Delete Path
-
-Delete is handled using a tombstone marker.
-
-That means the engine does not immediately remove the key from disk. It writes a special delete marker, and compaction later cleans old data.
-
-### 4. Recovery
-
-On startup, the engine:
-
-1. reads the manifest file to find active SSTables
-2. replays the WAL
-3. rebuilds the MemTable in memory
-
-## Build Instructions
+## Build
 
 From the project root:
 
@@ -78,105 +78,64 @@ cmake -S . -B build
 cmake --build build
 ```
 
-## Run the Full Demo
+## Run
 
-This runs the larger end-to-end flow with:
+### Full Demo
 
-- many inserts
-- flushes
-- compactions
-- crash simulation
-- restart recovery
+This runs the full end-to-end flow with multiple writes, flushes, compactions, crash simulation, and recovery:
 
 ```bash
 ./build/lsmtree_demo
 ```
 
-## Run the Short README Test
+### Small Test
 
-This is the best one to use for a terminal screenshot in the README because the output is short and neat.
+This runs a short, clean test with compact output:
 
 ```bash
-./build/lsmtree_readme_test
+./build/lsmtree_small_test
 ```
 
-Expected output:
+## Sample Output
 
-```text
-LSM TREE QUICK TEST
--------------------
-Run 1
-  apple  -> red
-  banana -> Not Found
-  date   -> brown
-Run 2 (after restart)
-  apple  -> red
-  banana -> Not Found
-  carrot -> orange
-  date   -> brown
-Files
-  - 00001.sst
-  - manifest.txt
-  - active.wal
-```
+![alt text](image.png)
 
-## Screenshot
-
-Paste your terminal screenshot here.
-
-Example markdown:
-
-```md
-![Terminal Output](./your-screenshot-file.png)
-```
-
-If you want, replace `your-screenshot-file.png` with the real image file name after you add it to this folder.
-
-## Important Files
-
-- `src/main.cpp`  
-  Full integration demo with more writes, flushes, compactions, and recovery.
-
-- `src/readme_test.cpp`  
-  Small clean test with short output for screenshots.
+## Key Files
 
 - `src/lsm_engine.cpp`  
-  Main coordinator logic for write, read, flush, recovery, and compaction.
+  Main engine logic for reads, writes, flushing, recovery, and compaction.
 
 - `src/sstable.cpp`  
-  Handles SSTable file writing, reading, index loading, and Bloom Filter loading.
+  SSTable file format, index loading, record lookup, and full-file scan for compaction.
 
 - `src/wal.cpp`  
-  Handles WAL append and replay.
+  WAL append and replay logic.
 
-## Current Limitations
+- `src/bloom_filter.cpp`  
+  Simple Bloom Filter implementation used before SSTable lookups.
 
-- single-threaded only
-- simple manifest format
-- simple compaction strategy
-- no range scan API
+- `src/main.cpp`  
+  Larger end-to-end demo run.
+
+- `src/small_test.cpp`  
+  Short verification run with compact terminal output.
+
+## Current Scope
+
+This is a focused educational implementation, so a few things are intentionally kept simple:
+
+- single-threaded execution
+- plain manifest format
+- basic size-tiered compaction
+- no range scan support
 - no block cache
-- no checksum validation
-- no levels like a full production LSM engine
+- no checksums
+- no multi-level compaction strategy
 
-## Why I Made It This Way
+## Possible Next Steps
 
-I kept the code simple on purpose:
-
-- `std::map` keeps keys sorted and makes flushing easy
-- plain C++ standard library containers keep the code easy to follow
-- the file formats are simple enough to inspect and debug
-- the project is structured so each part has a clear job
-
-## Future Improvements
-
-- add a cleaner benchmark mode with timing numbers
-- support range scans and iterators
-- add checksums to detect corrupted files
-- add leveled compaction
-- support configurable directories and thresholds from command line
-
-## Author Notes
-
-This project is meant to be educational first. If you read through the source files in order, it should feel like a small storage engine that you can actually understand without needing a huge codebase.
-# LSMTree_engine
+- add timing and throughput metrics
+- support range scans
+- add checksums for file validation
+- support command-line configuration
+- extend compaction into multiple levels

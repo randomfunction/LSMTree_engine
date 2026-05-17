@@ -1,7 +1,7 @@
 CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o: \
- /data/codes/projects/lsmtree_engine/src/memtable.cpp \
+ /home/tanishq/data/codes/projects/lsmtree_engine/src/memtable.cpp \
  /usr/include/stdc-predef.h \
- /data/codes/projects/lsmtree_engine/include/memtable.h \
+ /home/tanishq/data/codes/projects/lsmtree_engine/include/memtable.h \
  /usr/include/c++/13/cstddef \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \

@@ -7,7 +7,7 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "/data/codes/projects/lsmtree_engine/CMakeLists.txt"
+  "/home/tanishq/data/codes/projects/lsmtree_engine/CMakeLists.txt"
   "CMakeFiles/3.28.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.28.3/CMakeSystem.cmake"
   "/usr/share/cmake-3.28/Modules/CMakeCXXInformation.cmake"
@@ -41,5 +41,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/lsmtree_demo.dir/DependInfo.cmake"
-  "CMakeFiles/lsmtree_readme_test.dir/DependInfo.cmake"
+  "CMakeFiles/lsmtree_small_test.dir/DependInfo.cmake"
   )

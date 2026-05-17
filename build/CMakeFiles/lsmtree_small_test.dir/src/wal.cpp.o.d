@@ -1,4 +1,4 @@
-CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o: \
+CMakeFiles/lsmtree_small_test.dir/src/wal.cpp.o: \
  /home/tanishq/data/codes/projects/lsmtree_engine/src/wal.cpp \
  /usr/include/stdc-predef.h \
  /home/tanishq/data/codes/projects/lsmtree_engine/include/wal.h \

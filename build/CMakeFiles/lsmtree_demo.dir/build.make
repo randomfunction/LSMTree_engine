@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /data/codes/projects/lsmtree_engine
+CMAKE_SOURCE_DIR = /home/tanishq/data/codes/projects/lsmtree_engine
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /data/codes/projects/lsmtree_engine/build
+CMAKE_BINARY_DIR = /home/tanishq/data/codes/projects/lsmtree_engine/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/lsmtree_demo.dir/depend.make
@@ -70,88 +70,88 @@ include CMakeFiles/lsmtree_demo.dir/progress.make
 include CMakeFiles/lsmtree_demo.dir/flags.make
 
 CMakeFiles/lsmtree_demo.dir/src/main.cpp.o: CMakeFiles/lsmtree_demo.dir/flags.make
-CMakeFiles/lsmtree_demo.dir/src/main.cpp.o: /data/codes/projects/lsmtree_engine/src/main.cpp
+CMakeFiles/lsmtree_demo.dir/src/main.cpp.o: /home/tanishq/data/codes/projects/lsmtree_engine/src/main.cpp
 CMakeFiles/lsmtree_demo.dir/src/main.cpp.o: CMakeFiles/lsmtree_demo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/lsmtree_demo.dir/src/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_demo.dir/src/main.cpp.o -MF CMakeFiles/lsmtree_demo.dir/src/main.cpp.o.d -o CMakeFiles/lsmtree_demo.dir/src/main.cpp.o -c /data/codes/projects/lsmtree_engine/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/lsmtree_demo.dir/src/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_demo.dir/src/main.cpp.o -MF CMakeFiles/lsmtree_demo.dir/src/main.cpp.o.d -o CMakeFiles/lsmtree_demo.dir/src/main.cpp.o -c /home/tanishq/data/codes/projects/lsmtree_engine/src/main.cpp
 
 CMakeFiles/lsmtree_demo.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/lsmtree_demo.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/codes/projects/lsmtree_engine/src/main.cpp > CMakeFiles/lsmtree_demo.dir/src/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tanishq/data/codes/projects/lsmtree_engine/src/main.cpp > CMakeFiles/lsmtree_demo.dir/src/main.cpp.i
 
 CMakeFiles/lsmtree_demo.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/lsmtree_demo.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/codes/projects/lsmtree_engine/src/main.cpp -o CMakeFiles/lsmtree_demo.dir/src/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tanishq/data/codes/projects/lsmtree_engine/src/main.cpp -o CMakeFiles/lsmtree_demo.dir/src/main.cpp.s
 
 CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.o: CMakeFiles/lsmtree_demo.dir/flags.make
-CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.o: /data/codes/projects/lsmtree_engine/src/bloom_filter.cpp
+CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.o: /home/tanishq/data/codes/projects/lsmtree_engine/src/bloom_filter.cpp
 CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.o: CMakeFiles/lsmtree_demo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.o -MF CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.o.d -o CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.o -c /data/codes/projects/lsmtree_engine/src/bloom_filter.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.o -MF CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.o.d -o CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.o -c /home/tanishq/data/codes/projects/lsmtree_engine/src/bloom_filter.cpp
 
 CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/codes/projects/lsmtree_engine/src/bloom_filter.cpp > CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tanishq/data/codes/projects/lsmtree_engine/src/bloom_filter.cpp > CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.i
 
 CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/codes/projects/lsmtree_engine/src/bloom_filter.cpp -o CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tanishq/data/codes/projects/lsmtree_engine/src/bloom_filter.cpp -o CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.s
 
 CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o: CMakeFiles/lsmtree_demo.dir/flags.make
-CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o: /data/codes/projects/lsmtree_engine/src/memtable.cpp
+CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o: /home/tanishq/data/codes/projects/lsmtree_engine/src/memtable.cpp
 CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o: CMakeFiles/lsmtree_demo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o -MF CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o.d -o CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o -c /data/codes/projects/lsmtree_engine/src/memtable.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o -MF CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o.d -o CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o -c /home/tanishq/data/codes/projects/lsmtree_engine/src/memtable.cpp
 
 CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/codes/projects/lsmtree_engine/src/memtable.cpp > CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tanishq/data/codes/projects/lsmtree_engine/src/memtable.cpp > CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.i
 
 CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/codes/projects/lsmtree_engine/src/memtable.cpp -o CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tanishq/data/codes/projects/lsmtree_engine/src/memtable.cpp -o CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.s
 
 CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.o: CMakeFiles/lsmtree_demo.dir/flags.make
-CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.o: /data/codes/projects/lsmtree_engine/src/lsm_engine.cpp
+CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.o: /home/tanishq/data/codes/projects/lsmtree_engine/src/lsm_engine.cpp
 CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.o: CMakeFiles/lsmtree_demo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.o -MF CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.o.d -o CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.o -c /data/codes/projects/lsmtree_engine/src/lsm_engine.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.o -MF CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.o.d -o CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.o -c /home/tanishq/data/codes/projects/lsmtree_engine/src/lsm_engine.cpp
 
 CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/codes/projects/lsmtree_engine/src/lsm_engine.cpp > CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tanishq/data/codes/projects/lsmtree_engine/src/lsm_engine.cpp > CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.i
 
 CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/codes/projects/lsmtree_engine/src/lsm_engine.cpp -o CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tanishq/data/codes/projects/lsmtree_engine/src/lsm_engine.cpp -o CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.s
 
 CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o: CMakeFiles/lsmtree_demo.dir/flags.make
-CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o: /data/codes/projects/lsmtree_engine/src/sstable.cpp
+CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o: /home/tanishq/data/codes/projects/lsmtree_engine/src/sstable.cpp
 CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o: CMakeFiles/lsmtree_demo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o -MF CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o.d -o CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o -c /data/codes/projects/lsmtree_engine/src/sstable.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o -MF CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o.d -o CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o -c /home/tanishq/data/codes/projects/lsmtree_engine/src/sstable.cpp
 
 CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/codes/projects/lsmtree_engine/src/sstable.cpp > CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tanishq/data/codes/projects/lsmtree_engine/src/sstable.cpp > CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.i
 
 CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/codes/projects/lsmtree_engine/src/sstable.cpp -o CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tanishq/data/codes/projects/lsmtree_engine/src/sstable.cpp -o CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.s
 
 CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o: CMakeFiles/lsmtree_demo.dir/flags.make
-CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o: /data/codes/projects/lsmtree_engine/src/wal.cpp
+CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o: /home/tanishq/data/codes/projects/lsmtree_engine/src/wal.cpp
 CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o: CMakeFiles/lsmtree_demo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o -MF CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o.d -o CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o -c /data/codes/projects/lsmtree_engine/src/wal.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o -MF CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o.d -o CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o -c /home/tanishq/data/codes/projects/lsmtree_engine/src/wal.cpp
 
 CMakeFiles/lsmtree_demo.dir/src/wal.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/lsmtree_demo.dir/src/wal.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/codes/projects/lsmtree_engine/src/wal.cpp > CMakeFiles/lsmtree_demo.dir/src/wal.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tanishq/data/codes/projects/lsmtree_engine/src/wal.cpp > CMakeFiles/lsmtree_demo.dir/src/wal.cpp.i
 
 CMakeFiles/lsmtree_demo.dir/src/wal.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/lsmtree_demo.dir/src/wal.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/codes/projects/lsmtree_engine/src/wal.cpp -o CMakeFiles/lsmtree_demo.dir/src/wal.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tanishq/data/codes/projects/lsmtree_engine/src/wal.cpp -o CMakeFiles/lsmtree_demo.dir/src/wal.cpp.s
 
 # Object files for target lsmtree_demo
 lsmtree_demo_OBJECTS = \
@@ -173,7 +173,7 @@ lsmtree_demo: CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o
 lsmtree_demo: CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o
 lsmtree_demo: CMakeFiles/lsmtree_demo.dir/build.make
 lsmtree_demo: CMakeFiles/lsmtree_demo.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable lsmtree_demo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable lsmtree_demo"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/lsmtree_demo.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -185,6 +185,6 @@ CMakeFiles/lsmtree_demo.dir/clean:
 .PHONY : CMakeFiles/lsmtree_demo.dir/clean
 
 CMakeFiles/lsmtree_demo.dir/depend:
-	cd /data/codes/projects/lsmtree_engine/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /data/codes/projects/lsmtree_engine /data/codes/projects/lsmtree_engine /data/codes/projects/lsmtree_engine/build /data/codes/projects/lsmtree_engine/build /data/codes/projects/lsmtree_engine/build/CMakeFiles/lsmtree_demo.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/tanishq/data/codes/projects/lsmtree_engine/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/tanishq/data/codes/projects/lsmtree_engine /home/tanishq/data/codes/projects/lsmtree_engine /home/tanishq/data/codes/projects/lsmtree_engine/build /home/tanishq/data/codes/projects/lsmtree_engine/build /home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles/lsmtree_demo.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/lsmtree_demo.dir/depend
 

@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /data/codes/projects/lsmtree_engine
+CMAKE_SOURCE_DIR = /home/tanishq/data/codes/projects/lsmtree_engine
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /data/codes/projects/lsmtree_engine/build
+CMAKE_BINARY_DIR = /home/tanishq/data/codes/projects/lsmtree_engine/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /data/codes/projects/lsmtree_engine/build/CMakeFiles /data/codes/projects/lsmtree_engine/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles /home/tanishq/data/codes/projects/lsmtree_engine/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /data/codes/projects/lsmtree_engine/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -130,17 +130,17 @@ lsmtree_demo/fast:
 .PHONY : lsmtree_demo/fast
 
 #=============================================================================
-# Target rules for targets named lsmtree_readme_test
+# Target rules for targets named lsmtree_small_test
 
 # Build rule for target.
-lsmtree_readme_test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lsmtree_readme_test
-.PHONY : lsmtree_readme_test
+lsmtree_small_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lsmtree_small_test
+.PHONY : lsmtree_small_test
 
 # fast build rule for target.
-lsmtree_readme_test/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/build
-.PHONY : lsmtree_readme_test/fast
+lsmtree_small_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/build
+.PHONY : lsmtree_small_test/fast
 
 src/bloom_filter.o: src/bloom_filter.cpp.o
 .PHONY : src/bloom_filter.o
@@ -148,7 +148,7 @@ src/bloom_filter.o: src/bloom_filter.cpp.o
 # target to build an object file
 src/bloom_filter.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/bloom_filter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/bloom_filter.cpp.o
 .PHONY : src/bloom_filter.cpp.o
 
 src/bloom_filter.i: src/bloom_filter.cpp.i
@@ -157,7 +157,7 @@ src/bloom_filter.i: src/bloom_filter.cpp.i
 # target to preprocess a source file
 src/bloom_filter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/bloom_filter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/bloom_filter.cpp.i
 .PHONY : src/bloom_filter.cpp.i
 
 src/bloom_filter.s: src/bloom_filter.cpp.s
@@ -166,7 +166,7 @@ src/bloom_filter.s: src/bloom_filter.cpp.s
 # target to generate assembly for a file
 src/bloom_filter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/bloom_filter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/bloom_filter.cpp.s
 .PHONY : src/bloom_filter.cpp.s
 
 src/lsm_engine.o: src/lsm_engine.cpp.o
@@ -175,7 +175,7 @@ src/lsm_engine.o: src/lsm_engine.cpp.o
 # target to build an object file
 src/lsm_engine.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/lsm_engine.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/lsm_engine.cpp.o
 .PHONY : src/lsm_engine.cpp.o
 
 src/lsm_engine.i: src/lsm_engine.cpp.i
@@ -184,7 +184,7 @@ src/lsm_engine.i: src/lsm_engine.cpp.i
 # target to preprocess a source file
 src/lsm_engine.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/lsm_engine.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/lsm_engine.cpp.i
 .PHONY : src/lsm_engine.cpp.i
 
 src/lsm_engine.s: src/lsm_engine.cpp.s
@@ -193,7 +193,7 @@ src/lsm_engine.s: src/lsm_engine.cpp.s
 # target to generate assembly for a file
 src/lsm_engine.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/lsm_engine.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/lsm_engine.cpp.s
 .PHONY : src/lsm_engine.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -226,7 +226,7 @@ src/memtable.o: src/memtable.cpp.o
 # target to build an object file
 src/memtable.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/memtable.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/memtable.cpp.o
 .PHONY : src/memtable.cpp.o
 
 src/memtable.i: src/memtable.cpp.i
@@ -235,7 +235,7 @@ src/memtable.i: src/memtable.cpp.i
 # target to preprocess a source file
 src/memtable.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/memtable.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/memtable.cpp.i
 .PHONY : src/memtable.cpp.i
 
 src/memtable.s: src/memtable.cpp.s
@@ -244,32 +244,32 @@ src/memtable.s: src/memtable.cpp.s
 # target to generate assembly for a file
 src/memtable.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/memtable.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/memtable.cpp.s
 .PHONY : src/memtable.cpp.s
 
-src/readme_test.o: src/readme_test.cpp.o
-.PHONY : src/readme_test.o
+src/small_test.o: src/small_test.cpp.o
+.PHONY : src/small_test.o
 
 # target to build an object file
-src/readme_test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/readme_test.cpp.o
-.PHONY : src/readme_test.cpp.o
+src/small_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/small_test.cpp.o
+.PHONY : src/small_test.cpp.o
 
-src/readme_test.i: src/readme_test.cpp.i
-.PHONY : src/readme_test.i
+src/small_test.i: src/small_test.cpp.i
+.PHONY : src/small_test.i
 
 # target to preprocess a source file
-src/readme_test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/readme_test.cpp.i
-.PHONY : src/readme_test.cpp.i
+src/small_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/small_test.cpp.i
+.PHONY : src/small_test.cpp.i
 
-src/readme_test.s: src/readme_test.cpp.s
-.PHONY : src/readme_test.s
+src/small_test.s: src/small_test.cpp.s
+.PHONY : src/small_test.s
 
 # target to generate assembly for a file
-src/readme_test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/readme_test.cpp.s
-.PHONY : src/readme_test.cpp.s
+src/small_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/small_test.cpp.s
+.PHONY : src/small_test.cpp.s
 
 src/sstable.o: src/sstable.cpp.o
 .PHONY : src/sstable.o
@@ -277,7 +277,7 @@ src/sstable.o: src/sstable.cpp.o
 # target to build an object file
 src/sstable.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/sstable.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/sstable.cpp.o
 .PHONY : src/sstable.cpp.o
 
 src/sstable.i: src/sstable.cpp.i
@@ -286,7 +286,7 @@ src/sstable.i: src/sstable.cpp.i
 # target to preprocess a source file
 src/sstable.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/sstable.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/sstable.cpp.i
 .PHONY : src/sstable.cpp.i
 
 src/sstable.s: src/sstable.cpp.s
@@ -295,7 +295,7 @@ src/sstable.s: src/sstable.cpp.s
 # target to generate assembly for a file
 src/sstable.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/sstable.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/sstable.cpp.s
 .PHONY : src/sstable.cpp.s
 
 src/wal.o: src/wal.cpp.o
@@ -304,7 +304,7 @@ src/wal.o: src/wal.cpp.o
 # target to build an object file
 src/wal.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/wal.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/wal.cpp.o
 .PHONY : src/wal.cpp.o
 
 src/wal.i: src/wal.cpp.i
@@ -313,7 +313,7 @@ src/wal.i: src/wal.cpp.i
 # target to preprocess a source file
 src/wal.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/wal.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/wal.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/wal.cpp.i
 .PHONY : src/wal.cpp.i
 
 src/wal.s: src/wal.cpp.s
@@ -322,7 +322,7 @@ src/wal.s: src/wal.cpp.s
 # target to generate assembly for a file
 src/wal.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/wal.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_readme_test.dir/build.make CMakeFiles/lsmtree_readme_test.dir/src/wal.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/wal.cpp.s
 .PHONY : src/wal.cpp.s
 
 # Help Target
@@ -334,7 +334,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... lsmtree_demo"
-	@echo "... lsmtree_readme_test"
+	@echo "... lsmtree_small_test"
 	@echo "... src/bloom_filter.o"
 	@echo "... src/bloom_filter.i"
 	@echo "... src/bloom_filter.s"
@@ -347,9 +347,9 @@ help:
 	@echo "... src/memtable.o"
 	@echo "... src/memtable.i"
 	@echo "... src/memtable.s"
-	@echo "... src/readme_test.o"
-	@echo "... src/readme_test.i"
-	@echo "... src/readme_test.s"
+	@echo "... src/small_test.o"
+	@echo "... src/small_test.i"
+	@echo "... src/small_test.s"
 	@echo "... src/sstable.o"
 	@echo "... src/sstable.i"
 	@echo "... src/sstable.s"

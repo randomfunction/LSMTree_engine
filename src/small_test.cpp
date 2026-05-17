@@ -16,10 +16,10 @@ string Show(optional<string> value) {
 }  // namespace
 
 int main() {
-    const string data_directory = "readme_demo_data";
+    const string data_directory = "small_test_data";
     filesystem::remove_all(data_directory);
 
-    cout << "LSM TREE QUICK TEST\n";
+    cout << "LSM TREE SMALL TEST\n";
     cout << "-------------------\n";
 
     {

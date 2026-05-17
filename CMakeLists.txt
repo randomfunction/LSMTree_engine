@@ -16,8 +16,8 @@ add_executable(lsmtree_demo
 
 target_include_directories(lsmtree_demo PRIVATE include)
 
-add_executable(lsmtree_readme_test
-    src/readme_test.cpp
+add_executable(lsmtree_small_test
+    src/small_test.cpp
     src/bloom_filter.cpp
     src/memtable.cpp
     src/lsm_engine.cpp
@@ -25,4 +25,4 @@ add_executable(lsmtree_readme_test
     src/wal.cpp
 )
 
-target_include_directories(lsmtree_readme_test PRIVATE include)
+target_include_directories(lsmtree_small_test PRIVATE include)
