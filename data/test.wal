@@ -1,0 +1,5 @@
+SET	apple	red
+SET	banana	yellow
+SET	cherry	dark-red
+DELETE	banana
+SET	date	brown
