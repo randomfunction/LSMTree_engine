@@ -83,10 +83,24 @@ CMakeFiles/lsmtree_small_test.dir/src/small_test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/lsmtree_small_test.dir/src/small_test.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tanishq/data/codes/projects/lsmtree_engine/src/small_test.cpp -o CMakeFiles/lsmtree_small_test.dir/src/small_test.cpp.s
 
+CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.o: CMakeFiles/lsmtree_small_test.dir/flags.make
+CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.o: /home/tanishq/data/codes/projects/lsmtree_engine/src/trace_logger.cpp
+CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.o: CMakeFiles/lsmtree_small_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.o -MF CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.o.d -o CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.o -c /home/tanishq/data/codes/projects/lsmtree_engine/src/trace_logger.cpp
+
+CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tanishq/data/codes/projects/lsmtree_engine/src/trace_logger.cpp > CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.i
+
+CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tanishq/data/codes/projects/lsmtree_engine/src/trace_logger.cpp -o CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.s
+
 CMakeFiles/lsmtree_small_test.dir/src/bloom_filter.cpp.o: CMakeFiles/lsmtree_small_test.dir/flags.make
 CMakeFiles/lsmtree_small_test.dir/src/bloom_filter.cpp.o: /home/tanishq/data/codes/projects/lsmtree_engine/src/bloom_filter.cpp
 CMakeFiles/lsmtree_small_test.dir/src/bloom_filter.cpp.o: CMakeFiles/lsmtree_small_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/lsmtree_small_test.dir/src/bloom_filter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/lsmtree_small_test.dir/src/bloom_filter.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_small_test.dir/src/bloom_filter.cpp.o -MF CMakeFiles/lsmtree_small_test.dir/src/bloom_filter.cpp.o.d -o CMakeFiles/lsmtree_small_test.dir/src/bloom_filter.cpp.o -c /home/tanishq/data/codes/projects/lsmtree_engine/src/bloom_filter.cpp
 
 CMakeFiles/lsmtree_small_test.dir/src/bloom_filter.cpp.i: cmake_force
@@ -100,7 +114,7 @@ CMakeFiles/lsmtree_small_test.dir/src/bloom_filter.cpp.s: cmake_force
 CMakeFiles/lsmtree_small_test.dir/src/memtable.cpp.o: CMakeFiles/lsmtree_small_test.dir/flags.make
 CMakeFiles/lsmtree_small_test.dir/src/memtable.cpp.o: /home/tanishq/data/codes/projects/lsmtree_engine/src/memtable.cpp
 CMakeFiles/lsmtree_small_test.dir/src/memtable.cpp.o: CMakeFiles/lsmtree_small_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/lsmtree_small_test.dir/src/memtable.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/lsmtree_small_test.dir/src/memtable.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_small_test.dir/src/memtable.cpp.o -MF CMakeFiles/lsmtree_small_test.dir/src/memtable.cpp.o.d -o CMakeFiles/lsmtree_small_test.dir/src/memtable.cpp.o -c /home/tanishq/data/codes/projects/lsmtree_engine/src/memtable.cpp
 
 CMakeFiles/lsmtree_small_test.dir/src/memtable.cpp.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/lsmtree_small_test.dir/src/memtable.cpp.s: cmake_force
 CMakeFiles/lsmtree_small_test.dir/src/lsm_engine.cpp.o: CMakeFiles/lsmtree_small_test.dir/flags.make
 CMakeFiles/lsmtree_small_test.dir/src/lsm_engine.cpp.o: /home/tanishq/data/codes/projects/lsmtree_engine/src/lsm_engine.cpp
 CMakeFiles/lsmtree_small_test.dir/src/lsm_engine.cpp.o: CMakeFiles/lsmtree_small_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/lsmtree_small_test.dir/src/lsm_engine.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/lsmtree_small_test.dir/src/lsm_engine.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_small_test.dir/src/lsm_engine.cpp.o -MF CMakeFiles/lsmtree_small_test.dir/src/lsm_engine.cpp.o.d -o CMakeFiles/lsmtree_small_test.dir/src/lsm_engine.cpp.o -c /home/tanishq/data/codes/projects/lsmtree_engine/src/lsm_engine.cpp
 
 CMakeFiles/lsmtree_small_test.dir/src/lsm_engine.cpp.i: cmake_force
@@ -128,7 +142,7 @@ CMakeFiles/lsmtree_small_test.dir/src/lsm_engine.cpp.s: cmake_force
 CMakeFiles/lsmtree_small_test.dir/src/sstable.cpp.o: CMakeFiles/lsmtree_small_test.dir/flags.make
 CMakeFiles/lsmtree_small_test.dir/src/sstable.cpp.o: /home/tanishq/data/codes/projects/lsmtree_engine/src/sstable.cpp
 CMakeFiles/lsmtree_small_test.dir/src/sstable.cpp.o: CMakeFiles/lsmtree_small_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/lsmtree_small_test.dir/src/sstable.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/lsmtree_small_test.dir/src/sstable.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_small_test.dir/src/sstable.cpp.o -MF CMakeFiles/lsmtree_small_test.dir/src/sstable.cpp.o.d -o CMakeFiles/lsmtree_small_test.dir/src/sstable.cpp.o -c /home/tanishq/data/codes/projects/lsmtree_engine/src/sstable.cpp
 
 CMakeFiles/lsmtree_small_test.dir/src/sstable.cpp.i: cmake_force
@@ -142,7 +156,7 @@ CMakeFiles/lsmtree_small_test.dir/src/sstable.cpp.s: cmake_force
 CMakeFiles/lsmtree_small_test.dir/src/wal.cpp.o: CMakeFiles/lsmtree_small_test.dir/flags.make
 CMakeFiles/lsmtree_small_test.dir/src/wal.cpp.o: /home/tanishq/data/codes/projects/lsmtree_engine/src/wal.cpp
 CMakeFiles/lsmtree_small_test.dir/src/wal.cpp.o: CMakeFiles/lsmtree_small_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/lsmtree_small_test.dir/src/wal.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/lsmtree_small_test.dir/src/wal.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lsmtree_small_test.dir/src/wal.cpp.o -MF CMakeFiles/lsmtree_small_test.dir/src/wal.cpp.o.d -o CMakeFiles/lsmtree_small_test.dir/src/wal.cpp.o -c /home/tanishq/data/codes/projects/lsmtree_engine/src/wal.cpp
 
 CMakeFiles/lsmtree_small_test.dir/src/wal.cpp.i: cmake_force
@@ -156,6 +170,7 @@ CMakeFiles/lsmtree_small_test.dir/src/wal.cpp.s: cmake_force
 # Object files for target lsmtree_small_test
 lsmtree_small_test_OBJECTS = \
 "CMakeFiles/lsmtree_small_test.dir/src/small_test.cpp.o" \
+"CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.o" \
 "CMakeFiles/lsmtree_small_test.dir/src/bloom_filter.cpp.o" \
 "CMakeFiles/lsmtree_small_test.dir/src/memtable.cpp.o" \
 "CMakeFiles/lsmtree_small_test.dir/src/lsm_engine.cpp.o" \
@@ -166,6 +181,7 @@ lsmtree_small_test_OBJECTS = \
 lsmtree_small_test_EXTERNAL_OBJECTS =
 
 lsmtree_small_test: CMakeFiles/lsmtree_small_test.dir/src/small_test.cpp.o
+lsmtree_small_test: CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.o
 lsmtree_small_test: CMakeFiles/lsmtree_small_test.dir/src/bloom_filter.cpp.o
 lsmtree_small_test: CMakeFiles/lsmtree_small_test.dir/src/memtable.cpp.o
 lsmtree_small_test: CMakeFiles/lsmtree_small_test.dir/src/lsm_engine.cpp.o
@@ -173,7 +189,7 @@ lsmtree_small_test: CMakeFiles/lsmtree_small_test.dir/src/sstable.cpp.o
 lsmtree_small_test: CMakeFiles/lsmtree_small_test.dir/src/wal.cpp.o
 lsmtree_small_test: CMakeFiles/lsmtree_small_test.dir/build.make
 lsmtree_small_test: CMakeFiles/lsmtree_small_test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable lsmtree_small_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/tanishq/data/codes/projects/lsmtree_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable lsmtree_small_test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/lsmtree_small_test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

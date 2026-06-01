@@ -40,6 +40,7 @@ private:
     void LoadMetadata();
     optional<uint64_t> FindOffset(const string& key) const;
     SSTableRecord ReadRecordAtOffset(uint64_t offset) const;
+    string FileNameForLog() const;
 
     static void WriteUint32(ofstream& output, uint32_t value);
     static void WriteUint64(ofstream& output, uint64_t value);

@@ -22,6 +22,7 @@ public:
 
 private:
     vector<size_t> HashIndices(const string& key) const;
+    string IndicesForLog(const vector<size_t>& indices) const;
 
     size_t bit_count_;
     vector<bool> bits_;

@@ -298,6 +298,33 @@ src/sstable.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/sstable.cpp.s
 .PHONY : src/sstable.cpp.s
 
+src/trace_logger.o: src/trace_logger.cpp.o
+.PHONY : src/trace_logger.o
+
+# target to build an object file
+src/trace_logger.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/trace_logger.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.o
+.PHONY : src/trace_logger.cpp.o
+
+src/trace_logger.i: src/trace_logger.cpp.i
+.PHONY : src/trace_logger.i
+
+# target to preprocess a source file
+src/trace_logger.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/trace_logger.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.i
+.PHONY : src/trace_logger.cpp.i
+
+src/trace_logger.s: src/trace_logger.cpp.s
+.PHONY : src/trace_logger.s
+
+# target to generate assembly for a file
+src/trace_logger.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_demo.dir/build.make CMakeFiles/lsmtree_demo.dir/src/trace_logger.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lsmtree_small_test.dir/build.make CMakeFiles/lsmtree_small_test.dir/src/trace_logger.cpp.s
+.PHONY : src/trace_logger.cpp.s
+
 src/wal.o: src/wal.cpp.o
 .PHONY : src/wal.o
 
@@ -353,6 +380,9 @@ help:
 	@echo "... src/sstable.o"
 	@echo "... src/sstable.i"
 	@echo "... src/sstable.s"
+	@echo "... src/trace_logger.o"
+	@echo "... src/trace_logger.i"
+	@echo "... src/trace_logger.s"
 	@echo "... src/wal.o"
 	@echo "... src/wal.i"
 	@echo "... src/wal.s"

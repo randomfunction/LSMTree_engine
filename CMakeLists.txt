@@ -7,6 +7,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(lsmtree_demo
     src/main.cpp
+    src/trace_logger.cpp
     src/bloom_filter.cpp
     src/memtable.cpp
     src/lsm_engine.cpp
@@ -18,6 +19,7 @@ target_include_directories(lsmtree_demo PRIVATE include)
 
 add_executable(lsmtree_small_test
     src/small_test.cpp
+    src/trace_logger.cpp
     src/bloom_filter.cpp
     src/memtable.cpp
     src/lsm_engine.cpp

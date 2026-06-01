@@ -1,4 +1,5 @@
 #include "lsm_engine.h"
+#include "trace_logger.h"
 
 #include <filesystem>
 #include <iostream>
@@ -20,9 +21,11 @@ void PrintGet(LSMEngine& engine, const string& key) {
 
 int main() {
     const string data_directory = "demo_data";
+    TraceLogger::ResetStats();
     filesystem::remove_all(data_directory);
 
     cout << "=== LSM-Tree Demo Start ===\n";
+    cout << "[STARTUP] Demo reset directory=" << data_directory << '\n';
 
     {
         cout << "\n=== Phase A: Initial ingest before simulated crash ===\n";
@@ -41,7 +44,7 @@ int main() {
         PrintGet(engine, "seq_key_11");
         engine.PrintState();
 
-        cout << "\n[CRASH] Simulating process crash by destroying the engine object\n";
+        cout << "\n[SHUTDOWN] Simulating crash boundary by destroying engine object\n";
     }
 
     {
@@ -86,6 +89,8 @@ int main() {
         for (const string& key : probe_keys) {
             PrintGet(recovered_engine, key);
         }
+
+        recovered_engine.PrintLifecycleSummary();
     }
 
     cout << "\n=== LSM-Tree Demo Complete ===\n";

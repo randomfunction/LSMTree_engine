@@ -1,8 +1,12 @@
 #include "sstable.h"
 
+#include "trace_logger.h"
+
 #include <algorithm>
 #include <array>
+#include <filesystem>
 #include <fstream>
+#include <sstream>
 #include <stdexcept>
 
 using namespace std;
@@ -30,11 +34,17 @@ string ReadString(ifstream& input, uint32_t length) {
 shared_ptr<SSTable> SSTable::CreateFromMap(const string& file_path,
                                            const map<string, string>& sorted_data,
                                            size_t bloom_filter_bits) {
+    TraceScope scope("SSTABLE", "SSTable::CreateFromMap file=" +
+                                    filesystem::path(file_path).filename().string() +
+                                    " records=" + to_string(sorted_data.size()));
     ofstream output(file_path, ios::binary | ios::trunc);
     if (!output.is_open()) {
         throw runtime_error("Failed to create SSTable: " + file_path);
     }
 
+    TraceLogger::IncrementSSTablesCreated();
+    TraceLogger::Log("FLUSH", "Writing sorted records to " +
+                                  filesystem::path(file_path).filename().string());
     BloomFilter filter(bloom_filter_bits);
     vector<pair<string, uint64_t>> index_entries;
     index_entries.reserve(sorted_data.size());
@@ -44,7 +54,11 @@ shared_ptr<SSTable> SSTable::CreateFromMap(const string& file_path,
         bool is_tombstone = value == MemTable::kTombstone;
 
         filter.Add(key);
+        TraceLogger::Log("BLOOM", "Inserted key=" + key + " into " +
+                                      filesystem::path(file_path).filename().string());
         index_entries.push_back({key, record_offset});
+        TraceLogger::Log("INDEX", "Added key=" + key + " offset=" +
+                                      to_string(record_offset));
 
         WriteUint32(output, static_cast<uint32_t>(key.size()));
         WriteString(output, key);
@@ -56,6 +70,9 @@ shared_ptr<SSTable> SSTable::CreateFromMap(const string& file_path,
     }
 
     uint64_t index_offset = static_cast<uint64_t>(output.tellp());
+    TraceLogger::Log("INDEX", "Writing index section offset=" +
+                                  to_string(index_offset) + " entries=" +
+                                  to_string(index_entries.size()));
     for (const auto& [key, offset] : index_entries) {
         WriteUint32(output, static_cast<uint32_t>(key.size()));
         WriteString(output, key);
@@ -64,6 +81,9 @@ shared_ptr<SSTable> SSTable::CreateFromMap(const string& file_path,
 
     vector<uint8_t> bloom_bytes = filter.Serialize();
     uint64_t bloom_offset = static_cast<uint64_t>(output.tellp());
+    TraceLogger::Log("BLOOM", "Writing Bloom filter offset=" +
+                                  to_string(bloom_offset) + " bytes=" +
+                                  to_string(bloom_bytes.size()));
     if (!bloom_bytes.empty()) {
         output.write(reinterpret_cast<const char*>(bloom_bytes.data()),
                      static_cast<streamsize>(bloom_bytes.size()));
@@ -75,34 +95,51 @@ shared_ptr<SSTable> SSTable::CreateFromMap(const string& file_path,
     WriteUint64(output, static_cast<uint64_t>(bloom_bytes.size()));
     WriteUint64(output, static_cast<uint64_t>(filter.BitCount()));
     output.write(kFooterMagic.data(), static_cast<streamsize>(kFooterMagic.size()));
+    TraceLogger::Log("SSTABLE", "Footer written index_offset=" +
+                                    to_string(index_offset) +
+                                    " bloom_offset=" + to_string(bloom_offset));
 
     output.close();
     return LoadFromFile(file_path);
 }
 
 shared_ptr<SSTable> SSTable::LoadFromFile(const string& file_path) {
+    TraceScope scope("SSTABLE", "SSTable::LoadFromFile file=" +
+                                    filesystem::path(file_path).filename().string());
     auto table = make_shared<SSTable>(file_path);
     table->LoadMetadata();
     return table;
 }
 
 SSTable::SSTable(string file_path)
-    : file_path_(move(file_path)), bloom_filter_(8) {}
+    : file_path_(move(file_path)), bloom_filter_(8) {
+    TraceLogger::Log("SSTABLE", "Constructed SSTable handle file=" + FileNameForLog());
+}
 
 optional<SSTableRecord> SSTable::Get(const string& key) const {
+    TraceScope scope("READ", "SSTable::Get file=" + FileNameForLog() + " key=" +
+                                 key);
     if (!MightContain(key)) {
+        TraceLogger::Log("READ", "Bloom filter rejected key=" + key +
+                                     " file=" + FileNameForLog());
         return nullopt;
     }
 
     optional<uint64_t> offset = FindOffset(key);
     if (!offset.has_value()) {
+        TraceLogger::Log("INDEX", "binary search miss key=" + key + " file=" +
+                                      FileNameForLog());
         return nullopt;
     }
+    TraceLogger::Log("INDEX", "binary search found offset=" +
+                                  to_string(*offset) + " key=" + key +
+                                  " file=" + FileNameForLog());
 
     return ReadRecordAtOffset(*offset);
 }
 
 vector<SSTableRecord> SSTable::ReadAllRecords() const {
+    TraceScope scope("SSTABLE", "SSTable::ReadAllRecords file=" + FileNameForLog());
     ifstream input(file_path_, ios::binary);
     if (!input.is_open()) {
         throw runtime_error("Failed to open SSTable for scan: " + file_path_);
@@ -110,6 +147,9 @@ vector<SSTableRecord> SSTable::ReadAllRecords() const {
 
     vector<SSTableRecord> records;
     records.reserve(index_entries_.size());
+    TraceLogger::Log("SSTABLE", "Sequential scan records=" +
+                                  to_string(index_entries_.size()) + " file=" +
+                                  FileNameForLog());
 
     for (const auto& [key, offset] : index_entries_) {
         (void)key;
@@ -120,6 +160,8 @@ vector<SSTableRecord> SSTable::ReadAllRecords() const {
 }
 
 bool SSTable::MightContain(const string& key) const {
+    TraceLogger::Log("READ", "Bloom filter probe file=" + FileNameForLog() +
+                                 " key=" + key);
     return bloom_filter_.MightContain(key);
 }
 
@@ -132,6 +174,7 @@ size_t SSTable::RecordCount() const {
 }
 
 void SSTable::LoadMetadata() {
+    TraceScope scope("SSTABLE", "SSTable::LoadMetadata file=" + FileNameForLog());
     ifstream input(file_path_, ios::binary);
     if (!input.is_open()) {
         throw runtime_error("Failed to open SSTable: " + file_path_);
@@ -149,12 +192,21 @@ void SSTable::LoadMetadata() {
     bloom_offset_ = ReadUint64(input);
     bloom_byte_count_ = ReadUint64(input);
     bloom_bit_count_ = ReadUint64(input);
+    TraceLogger::Log("SSTABLE", "Footer metadata index_offset=" +
+                                    to_string(index_offset_) +
+                                    " index_count=" + to_string(index_count_) +
+                                    " bloom_offset=" + to_string(bloom_offset_) +
+                                    " bloom_bytes=" +
+                                    to_string(bloom_byte_count_) +
+                                    " bloom_bits=" +
+                                    to_string(bloom_bit_count_));
 
     array<char, 8> magic{};
     input.read(magic.data(), static_cast<streamsize>(magic.size()));
     if (magic != kFooterMagic) {
         throw runtime_error("SSTable footer magic mismatch: " + file_path_);
     }
+    TraceLogger::Log("SSTABLE", "Footer magic verified file=" + FileNameForLog());
 
     input.seekg(static_cast<streamoff>(index_offset_));
     index_entries_.clear();
@@ -164,6 +216,9 @@ void SSTable::LoadMetadata() {
         string key = ReadString(input, key_length);
         uint64_t offset = ReadUint64(input);
         index_entries_.push_back({key, offset});
+        TraceLogger::Log("INDEX", "Loaded key=" + key + " offset=" +
+                                      to_string(offset) + " from " +
+                                      FileNameForLog());
     }
 
     input.seekg(static_cast<streamoff>(bloom_offset_));
@@ -174,9 +229,13 @@ void SSTable::LoadMetadata() {
     }
     bloom_filter_ = BloomFilter::Deserialize(static_cast<size_t>(bloom_bit_count_),
                                              bloom_bytes);
+    TraceLogger::Log("BLOOM", "Loaded Bloom filter file=" + FileNameForLog());
 }
 
 optional<uint64_t> SSTable::FindOffset(const string& key) const {
+    TraceLogger::Log("INDEX", "binary search index entries=" +
+                                  to_string(index_entries_.size()) + " key=" +
+                                  key + " file=" + FileNameForLog());
     auto it = lower_bound(
         index_entries_.begin(), index_entries_.end(), key,
         [](const pair<string, uint64_t>& entry, const string& target_key) {
@@ -191,6 +250,9 @@ optional<uint64_t> SSTable::FindOffset(const string& key) const {
 }
 
 SSTableRecord SSTable::ReadRecordAtOffset(uint64_t offset) const {
+    TraceScope scope("READ", "SSTable::ReadRecordAtOffset file=" +
+                                 FileNameForLog() + " offset=" +
+                                 to_string(offset));
     ifstream input(file_path_, ios::binary);
     if (!input.is_open()) {
         throw runtime_error("Failed to open SSTable record reader: " + file_path_);
@@ -205,7 +267,9 @@ SSTableRecord SSTable::ReadRecordAtOffset(uint64_t offset) const {
 
     uint8_t tombstone_byte = 0;
     input.read(reinterpret_cast<char*>(&tombstone_byte), sizeof(tombstone_byte));
-
+    TraceLogger::Log("READ", "Loaded record key=" + key + " value=" + value +
+                                 " tombstone=" +
+                                 string(tombstone_byte == 1 ? "true" : "false"));
     return {key, value, tombstone_byte == 1};
 }
 
@@ -227,4 +291,8 @@ uint64_t SSTable::ReadUint64(ifstream& input) {
     uint64_t value = 0;
     input.read(reinterpret_cast<char*>(&value), sizeof(value));
     return value;
+}
+
+string SSTable::FileNameForLog() const {
+    return filesystem::path(file_path_).filename().string();
 }

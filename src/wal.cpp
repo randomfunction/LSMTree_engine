@@ -1,8 +1,15 @@
 #include "wal.h"
 
+#include "trace_logger.h"
+
 #include <filesystem>
+#include <fcntl.h>
+#include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 using namespace std;
 
@@ -23,34 +30,44 @@ vector<string> SplitTabSeparatedLine(const string& line) {
 }  // namespace
 
 WAL::WAL(string file_path) : file_path_(move(file_path)) {
+    TraceScope scope("WAL", "WAL::WAL file=" +
+                                filesystem::path(file_path_).filename().string());
     filesystem::path wal_path(file_path_);
     if (wal_path.has_parent_path()) {
         filesystem::create_directories(wal_path.parent_path());
+        TraceLogger::Log("WAL", "Ensured WAL directory exists path=" +
+                                    wal_path.parent_path().string());
     }
 
-    output_stream_.open(file_path_, ios::app);
-    if (!output_stream_.is_open()) {
-        throw runtime_error("Failed to open WAL file: " + file_path_);
-    }
+    OpenForAppend();
 }
 
 WAL::~WAL() {
-    if (output_stream_.is_open()) {
-        output_stream_.close();
+    TraceScope scope("WAL", "WAL::~WAL file=" +
+                                filesystem::path(file_path_).filename().string());
+    if (file_descriptor_ >= 0) {
+        close(file_descriptor_);
+        file_descriptor_ = -1;
+        TraceLogger::Log("WAL", "Closed WAL file descriptor");
     }
 }
 
 void WAL::AppendSet(const string& key, const string& value) {
+    TraceScope scope("WAL", "WAL::AppendSet key=" + key + " value=" + value);
     AppendLine("SET\t" + Escape(key) + '\t' + Escape(value));
 }
 
 void WAL::AppendDelete(const string& key) {
+    TraceScope scope("WAL", "WAL::AppendDelete key=" + key);
     AppendLine("DELETE\t" + Escape(key));
 }
 
 vector<WALRecord> WAL::Replay() const {
+    TraceScope scope("RECOVERY", "WAL::Replay file=" +
+                                     filesystem::path(file_path_).filename().string());
     ifstream input_stream(file_path_);
     if (!input_stream.is_open()) {
+        TraceLogger::Log("RECOVERY", "WAL missing => replay yields 0 records");
         return {};
     }
 
@@ -69,26 +86,34 @@ vector<WALRecord> WAL::Replay() const {
         if (parts[0] == "SET" && parts.size() == 3) {
             records.push_back(
                 {WALOperationType::Set, Unescape(parts[1]), Unescape(parts[2])});
+            TraceLogger::Log("RECOVERY", "Replayed WAL SET key=" +
+                                             records.back().key + " value=" +
+                                             records.back().value);
         } else if (parts[0] == "DELETE" && parts.size() == 2) {
             records.push_back({WALOperationType::Delete, Unescape(parts[1]), ""});
+            TraceLogger::Log("RECOVERY", "Replayed WAL DELETE key=" +
+                                             records.back().key);
         }
     }
 
+    TraceLogger::Log("RECOVERY", "WAL replay complete count=" +
+                                     to_string(records.size()));
     return records;
 }
 
 void WAL::Reset() {
-    if (output_stream_.is_open()) {
-        output_stream_.close();
+    TraceScope scope("WAL", "WAL::Reset file=" +
+                                filesystem::path(file_path_).filename().string());
+    if (file_descriptor_ >= 0) {
+        close(file_descriptor_);
+        file_descriptor_ = -1;
     }
 
     ofstream truncate_stream(file_path_, ios::trunc);
     truncate_stream.close();
+    TraceLogger::Log("WAL", "Truncated WAL file on flush boundary");
 
-    output_stream_.open(file_path_, ios::app);
-    if (!output_stream_.is_open()) {
-        throw runtime_error("Failed to reopen WAL file: " + file_path_);
-    }
+    OpenForAppend();
 }
 
 const string& WAL::FilePath() const {
@@ -96,12 +121,23 @@ const string& WAL::FilePath() const {
 }
 
 void WAL::AppendLine(const string& line) {
-    output_stream_ << line << '\n';
-    output_stream_.flush();
-
-    if (!output_stream_) {
+    string payload = line + '\n';
+    ssize_t written =
+        write(file_descriptor_, payload.data(), static_cast<size_t>(payload.size()));
+    if (written != static_cast<ssize_t>(payload.size())) {
         throw runtime_error("Failed to append to WAL file: " + file_path_);
     }
+
+    if (fsync(file_descriptor_) != 0) {
+        throw runtime_error("Failed to fsync WAL file: " + file_path_);
+    }
+
+    TraceLogger::IncrementWALAppends();
+    TraceLogger::Log("WAL", "Appended record bytes=" + to_string(payload.size()) +
+                                " file=" +
+                                filesystem::path(file_path_).filename().string());
+    TraceLogger::Log("WAL", "fsync complete file=" +
+                                filesystem::path(file_path_).filename().string());
 }
 
 string WAL::Escape(const string& input) {
@@ -151,4 +187,13 @@ string WAL::Unescape(const string& input) {
     }
 
     return unescaped;
+}
+
+void WAL::OpenForAppend() {
+    file_descriptor_ = open(file_path_.c_str(), O_CREAT | O_WRONLY | O_APPEND, 0644);
+    if (file_descriptor_ < 0) {
+        throw runtime_error("Failed to open WAL file: " + file_path_);
+    }
+    TraceLogger::Log("WAL", "Opened WAL for append file=" +
+                                filesystem::path(file_path_).filename().string());
 }

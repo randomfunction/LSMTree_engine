@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o.d"
   "CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o"
   "CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o.d"
+  "CMakeFiles/lsmtree_demo.dir/src/trace_logger.cpp.o"
+  "CMakeFiles/lsmtree_demo.dir/src/trace_logger.cpp.o.d"
   "CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o"
   "CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o.d"
   "lsmtree_demo"

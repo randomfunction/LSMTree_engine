@@ -2,6 +2,7 @@
 
 #include "memtable.h"
 #include "sstable.h"
+#include "trace_logger.h"
 #include "wal.h"
 
 #include <memory>
@@ -17,6 +18,7 @@ public:
                        size_t memtable_flush_threshold = 5,
                        size_t bloom_filter_bits = 256,
                        bool verbose = true);
+    ~LSMEngine();
 
     void Set(const string& key, const string& value);
     void Delete(const string& key);
@@ -25,6 +27,7 @@ public:
     void Recover();
     void FlushMemTable();
     void PrintState() const;
+    void PrintLifecycleSummary() const;
 
 private:
     void LoadManifest();

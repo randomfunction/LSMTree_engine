@@ -1,6 +1,5 @@
 #pragma once
 
-#include <fstream>
 #include <string>
 #include <vector>
 
@@ -33,7 +32,8 @@ private:
     void AppendLine(const string& line);
     static string Escape(const string& input);
     static string Unescape(const string& input);
+    void OpenForAppend();
 
     string file_path_;
-    ofstream output_stream_;
+    int file_descriptor_ = -1;
 };

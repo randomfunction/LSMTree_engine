@@ -13,6 +13,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/tanishq/data/codes/projects/lsmtree_engine/src/main.cpp" "CMakeFiles/lsmtree_demo.dir/src/main.cpp.o" "gcc" "CMakeFiles/lsmtree_demo.dir/src/main.cpp.o.d"
   "/home/tanishq/data/codes/projects/lsmtree_engine/src/memtable.cpp" "CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o" "gcc" "CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o.d"
   "/home/tanishq/data/codes/projects/lsmtree_engine/src/sstable.cpp" "CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o" "gcc" "CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o.d"
+  "/home/tanishq/data/codes/projects/lsmtree_engine/src/trace_logger.cpp" "CMakeFiles/lsmtree_demo.dir/src/trace_logger.cpp.o" "gcc" "CMakeFiles/lsmtree_demo.dir/src/trace_logger.cpp.o.d"
   "/home/tanishq/data/codes/projects/lsmtree_engine/src/wal.cpp" "CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o" "gcc" "CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o.d"
   )
 
