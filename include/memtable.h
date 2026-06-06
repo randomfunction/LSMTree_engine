@@ -1,25 +1,25 @@
 #pragma once
 
-#include <cstddef>
-#include <map>
-#include <string>
+#include <bits/stdc++.h>
+using namespace std;
 
 class MemTable {
+    
+private:
+    map<string, string> table_;
+
 public:
-    static const std::string kTombstone;
+    static const string kTombstone;
 
-    void Set(const std::string& key, const std::string& value);
-    void Delete(const std::string& key);
+    void Set(const string& key, const string& value);
+    void Delete(const string& key);
 
-    bool Contains(const std::string& key) const;
-    bool IsDeleted(const std::string& key) const;
-    bool Get(const std::string& key, std::string& value) const;
+    bool Contains(const string& key) const;
+    bool IsDeleted(const string& key) const;
+    bool Get(const string& key, string& value) const;
 
     size_t Size() const;
     bool Empty() const;
     void Clear();
-    const std::map<std::string, std::string>& Data() const;
-
-private:
-    std::map<std::string, std::string> table_;
+    const map<string, string>& Data() const;
 };
