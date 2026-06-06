@@ -1,14 +1,14 @@
 #include "trace_logger.h"
 
-#include <algorithm>
-#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
 
 bool g_enabled = true;
 int g_indent = 0;
 LifecycleStats g_stats;
 
-std::string IndentPrefix() {
-    return std::string(static_cast<size_t>(std::max(g_indent, 0)) * 2, ' ');
+string IndentPrefix() {
+    return string(static_cast<size_t>(max(g_indent, 0)) * 2, ' ');
 }
 
 void TraceLogger::SetEnabled(bool enabled) {
@@ -47,12 +47,12 @@ void TraceLogger::AddTombstonesRemoved(uint64_t count) {
     g_stats.tombstones_removed += count;
 }
 
-void TraceLogger::Log(const std::string& category, const std::string& message) {
+void TraceLogger::Log(const string& category, const string& message) {
     if (!g_enabled) {
         return;
     }
 
-    std::cout << "[" << category << "] " << IndentPrefix() << message << '\n';
+    cout << "[" << category << "] " << IndentPrefix() << message << '\n';
 }
 
 void TraceLogger::PushIndent() {
@@ -60,10 +60,10 @@ void TraceLogger::PushIndent() {
 }
 
 void TraceLogger::PopIndent() {
-    g_indent = std::max(g_indent - 1, 0);
+    g_indent = max(g_indent - 1, 0);
 }
 
-TraceScope::TraceScope(const std::string& category, const std::string& message)
+TraceScope::TraceScope(const string& category, const string& message)
     : category_(category) {
     TraceLogger::Log(category_, "ENTER " + message);
     TraceLogger::PushIndent();

@@ -1,26 +1,29 @@
 #include "memtable.h"
+#include<bits/stdc++.h>
 
-const std::string MemTable::kTombstone = "__LSM_TOMBSTONE__";
+using namespace std;
 
-void MemTable::Set(const std::string& key, const std::string& value) {
+const string MemTable::kTombstone = "__LSM_TOMBSTONE__";
+
+void MemTable::Set(const string& key, const string& value) {
     table_[key] = value;
 }
 
-void MemTable::Delete(const std::string& key) {
+void MemTable::Delete(const string& key) {
     table_[key] = kTombstone;
 }
 
-bool MemTable::Contains(const std::string& key) const {
+bool MemTable::Contains(const string& key) const {
     return table_.find(key) != table_.end();
 }
 
-bool MemTable::IsDeleted(const std::string& key) const {
-    std::map<std::string, std::string>::const_iterator it = table_.find(key);
+bool MemTable::IsDeleted(const string& key) const {
+    map<string, string>::const_iterator it = table_.find(key);
     return it != table_.end() && it->second == kTombstone;
 }
 
-bool MemTable::Get(const std::string& key, std::string& value) const {
-    std::map<std::string, std::string>::const_iterator it = table_.find(key);
+bool MemTable::Get(const string& key, string& value) const {
+    map<string, string>::const_iterator it = table_.find(key);
     if (it == table_.end() || it->second == kTombstone) {
         return false;
     }
@@ -41,6 +44,6 @@ void MemTable::Clear() {
     table_.clear();
 }
 
-const std::map<std::string, std::string>& MemTable::Data() const {
+const map<string, string>& MemTable::Data() const {
     return table_;
 }
