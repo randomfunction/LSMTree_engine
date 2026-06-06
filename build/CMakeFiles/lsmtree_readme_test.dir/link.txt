@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/lsmtree_readme_test.dir/src/readme_test.cpp.o CMakeFiles/lsmtree_readme_test.dir/src/bloom_filter.cpp.o CMakeFiles/lsmtree_readme_test.dir/src/memtable.cpp.o CMakeFiles/lsmtree_readme_test.dir/src/lsm_engine.cpp.o CMakeFiles/lsmtree_readme_test.dir/src/sstable.cpp.o CMakeFiles/lsmtree_readme_test.dir/src/wal.cpp.o -o lsmtree_readme_test 

@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/lsmtree_phase1.dir/src/main.cpp.o CMakeFiles/lsmtree_phase1.dir/src/memtable.cpp.o CMakeFiles/lsmtree_phase1.dir/src/wal.cpp.o CMakeFiles/lsmtree_phase1.dir/src/lsm_engine.cpp.o -o lsmtree_phase1 

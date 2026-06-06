@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/lsmtree_demo.dir/src/main.cpp.o CMakeFiles/lsmtree_demo.dir/src/trace_logger.cpp.o CMakeFiles/lsmtree_demo.dir/src/bloom_filter.cpp.o CMakeFiles/lsmtree_demo.dir/src/memtable.cpp.o CMakeFiles/lsmtree_demo.dir/src/lsm_engine.cpp.o CMakeFiles/lsmtree_demo.dir/src/sstable.cpp.o CMakeFiles/lsmtree_demo.dir/src/wal.cpp.o -o lsmtree_demo 
