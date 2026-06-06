@@ -1,7 +1,7 @@
 #pragma once
 
-#include <string>
-#include <vector>
+#include <bits/stdc++.h>
+using namespace std;
 
 enum class WALOperationType {
     Set,
@@ -10,29 +10,29 @@ enum class WALOperationType {
 
 struct WALRecord {
     WALOperationType type;
-    std::string key;
-    std::string value;
+    string key;
+    string value;
 };
 
 class WAL {
 public:
-    explicit WAL(const std::string& file_path);
+    explicit WAL(const string& file_path);
     ~WAL();
 
-    void AppendSet(const std::string& key, const std::string& value);
-    void AppendDelete(const std::string& key);
-    std::vector<WALRecord> Replay() const;
+    void AppendSet(const string& key, const string& value);
+    void AppendDelete(const string& key);
+    vector<WALRecord> Replay() const;
     void Reset();
 
-    const std::string& FilePath() const;
+    const string& FilePath() const;
 
 private:
-    void AppendLine(const std::string& line);
-    static std::string Escape(const std::string& input);
-    static std::string Unescape(const std::string& input);
-    static std::vector<std::string> SplitTabSeparatedLine(const std::string& line);
+    void AppendLine(const string& line);
+    static string Escape(const string& input);
+    static string Unescape(const string& input);
+    static vector<string> SplitTabSeparatedLine(const string& line);
     void OpenForAppend();
 
-    std::string file_path_;
+    string file_path_;
     int file_descriptor_ = -1;
 };
