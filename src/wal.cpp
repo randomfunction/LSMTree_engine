@@ -11,30 +11,12 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-using namespace std;
-
-namespace {
-
-vector<string> SplitTabSeparatedLine(const string& line) {
-    vector<string> parts;
-    stringstream stream(line);
-    string token;
-
-    while (getline(stream, token, '\t')) {
-        parts.push_back(token);
-    }
-
-    return parts;
-}
-
-}  // namespace
-
-WAL::WAL(string file_path) : file_path_(move(file_path)) {
+WAL::WAL(const std::string& file_path) : file_path_(file_path) {
     TraceScope scope("WAL", "WAL::WAL file=" +
-                                filesystem::path(file_path_).filename().string());
-    filesystem::path wal_path(file_path_);
+                                std::filesystem::path(file_path_).filename().string());
+    std::filesystem::path wal_path(file_path_);
     if (wal_path.has_parent_path()) {
-        filesystem::create_directories(wal_path.parent_path());
+        std::filesystem::create_directories(wal_path.parent_path());
         TraceLogger::Log("WAL", "Ensured WAL directory exists path=" +
                                     wal_path.parent_path().string());
     }
@@ -44,7 +26,7 @@ WAL::WAL(string file_path) : file_path_(move(file_path)) {
 
 WAL::~WAL() {
     TraceScope scope("WAL", "WAL::~WAL file=" +
-                                filesystem::path(file_path_).filename().string());
+                                std::filesystem::path(file_path_).filename().string());
     if (file_descriptor_ >= 0) {
         close(file_descriptor_);
         file_descriptor_ = -1;
@@ -52,33 +34,33 @@ WAL::~WAL() {
     }
 }
 
-void WAL::AppendSet(const string& key, const string& value) {
+void WAL::AppendSet(const std::string& key, const std::string& value) {
     TraceScope scope("WAL", "WAL::AppendSet key=" + key + " value=" + value);
     AppendLine("SET\t" + Escape(key) + '\t' + Escape(value));
 }
 
-void WAL::AppendDelete(const string& key) {
+void WAL::AppendDelete(const std::string& key) {
     TraceScope scope("WAL", "WAL::AppendDelete key=" + key);
     AppendLine("DELETE\t" + Escape(key));
 }
 
-vector<WALRecord> WAL::Replay() const {
+std::vector<WALRecord> WAL::Replay() const {
     TraceScope scope("RECOVERY", "WAL::Replay file=" +
-                                     filesystem::path(file_path_).filename().string());
-    ifstream input_stream(file_path_);
+                                     std::filesystem::path(file_path_).filename().string());
+    std::ifstream input_stream(file_path_.c_str());
     if (!input_stream.is_open()) {
         TraceLogger::Log("RECOVERY", "WAL missing => replay yields 0 records");
-        return {};
+        return std::vector<WALRecord>();
     }
 
-    vector<WALRecord> records;
-    string line;
-    while (getline(input_stream, line)) {
+    std::vector<WALRecord> records;
+    std::string line;
+    while (std::getline(input_stream, line)) {
         if (line.empty()) {
             continue;
         }
 
-        vector<string> parts = SplitTabSeparatedLine(line);
+        std::vector<std::string> parts = SplitTabSeparatedLine(line);
         if (parts.empty()) {
             continue;
         }
@@ -97,54 +79,55 @@ vector<WALRecord> WAL::Replay() const {
     }
 
     TraceLogger::Log("RECOVERY", "WAL replay complete count=" +
-                                     to_string(records.size()));
+                                     std::to_string(records.size()));
     return records;
 }
 
 void WAL::Reset() {
     TraceScope scope("WAL", "WAL::Reset file=" +
-                                filesystem::path(file_path_).filename().string());
+                                std::filesystem::path(file_path_).filename().string());
     if (file_descriptor_ >= 0) {
         close(file_descriptor_);
         file_descriptor_ = -1;
     }
 
-    ofstream truncate_stream(file_path_, ios::trunc);
+    std::ofstream truncate_stream(file_path_.c_str(), std::ios::trunc);
     truncate_stream.close();
     TraceLogger::Log("WAL", "Truncated WAL file on flush boundary");
 
     OpenForAppend();
 }
 
-const string& WAL::FilePath() const {
+const std::string& WAL::FilePath() const {
     return file_path_;
 }
 
-void WAL::AppendLine(const string& line) {
-    string payload = line + '\n';
+void WAL::AppendLine(const std::string& line) {
+    std::string payload = line + '\n';
     ssize_t written =
         write(file_descriptor_, payload.data(), static_cast<size_t>(payload.size()));
     if (written != static_cast<ssize_t>(payload.size())) {
-        throw runtime_error("Failed to append to WAL file: " + file_path_);
+        throw std::runtime_error("Failed to append to WAL file: " + file_path_);
     }
 
     if (fsync(file_descriptor_) != 0) {
-        throw runtime_error("Failed to fsync WAL file: " + file_path_);
+        throw std::runtime_error("Failed to fsync WAL file: " + file_path_);
     }
 
     TraceLogger::IncrementWALAppends();
-    TraceLogger::Log("WAL", "Appended record bytes=" + to_string(payload.size()) +
+    TraceLogger::Log("WAL", "Appended record bytes=" + std::to_string(payload.size()) +
                                 " file=" +
-                                filesystem::path(file_path_).filename().string());
+                                std::filesystem::path(file_path_).filename().string());
     TraceLogger::Log("WAL", "fsync complete file=" +
-                                filesystem::path(file_path_).filename().string());
+                                std::filesystem::path(file_path_).filename().string());
 }
 
-string WAL::Escape(const string& input) {
-    string escaped;
+std::string WAL::Escape(const std::string& input) {
+    std::string escaped;
     escaped.reserve(input.size());
 
-    for (char ch : input) {
+    for (std::string::const_iterator it = input.begin(); it != input.end(); ++it) {
+        char ch = *it;
         if (ch == '\\') {
             escaped += "\\\\";
         } else if (ch == '\t') {
@@ -159,8 +142,8 @@ string WAL::Escape(const string& input) {
     return escaped;
 }
 
-string WAL::Unescape(const string& input) {
-    string unescaped;
+std::string WAL::Unescape(const std::string& input) {
+    std::string unescaped;
     unescaped.reserve(input.size());
 
     for (size_t i = 0; i < input.size(); ++i) {
@@ -189,11 +172,23 @@ string WAL::Unescape(const string& input) {
     return unescaped;
 }
 
+std::vector<std::string> WAL::SplitTabSeparatedLine(const std::string& line) {
+    std::vector<std::string> parts;
+    std::stringstream stream(line);
+    std::string token;
+
+    while (std::getline(stream, token, '\t')) {
+        parts.push_back(token);
+    }
+
+    return parts;
+}
+
 void WAL::OpenForAppend() {
     file_descriptor_ = open(file_path_.c_str(), O_CREAT | O_WRONLY | O_APPEND, 0644);
     if (file_descriptor_ < 0) {
-        throw runtime_error("Failed to open WAL file: " + file_path_);
+        throw std::runtime_error("Failed to open WAL file: " + file_path_);
     }
     TraceLogger::Log("WAL", "Opened WAL for append file=" +
-                                filesystem::path(file_path_).filename().string());
+                                std::filesystem::path(file_path_).filename().string());
 }

@@ -4,60 +4,58 @@
 #include <algorithm>
 #include <sstream>
 
-using namespace std;
-
-namespace {
-
-size_t HashDJB2(const string& key) {
+size_t BloomFilter::HashDJB2(const std::string& key) {
     size_t hash = 5381;
-    for (unsigned char ch : key) {
+    for (std::string::const_iterator it = key.begin(); it != key.end(); ++it) {
+        unsigned char ch = static_cast<unsigned char>(*it);
         hash = ((hash << 5U) + hash) + ch;
     }
     return hash;
 }
 
-size_t HashFNV1a(const string& key) {
+size_t BloomFilter::HashFNV1a(const std::string& key) {
     size_t hash = 1469598103934665603ULL;
-    for (unsigned char ch : key) {
+    for (std::string::const_iterator it = key.begin(); it != key.end(); ++it) {
+        unsigned char ch = static_cast<unsigned char>(*it);
         hash ^= ch;
         hash *= 1099511628211ULL;
     }
     return hash;
 }
 
-size_t HashRotate(const string& key) {
+size_t BloomFilter::HashRotate(const std::string& key) {
     size_t hash = 0;
-    for (unsigned char ch : key) {
+    for (std::string::const_iterator it = key.begin(); it != key.end(); ++it) {
+        unsigned char ch = static_cast<unsigned char>(*it);
         hash = (hash << 7U) ^ (hash >> 3U) ^ ch;
     }
     return hash;
 }
 
-}  // namespace
-
 BloomFilter::BloomFilter(size_t bit_count)
-    : bit_count_(max<size_t>(bit_count, 8)), bits_(bit_count_, false) {
+    : bit_count_(std::max<size_t>(bit_count, 8)), bits_(bit_count_, false) {
     TraceLogger::Log("BLOOM", "Initialized BloomFilter bit_count=" +
-                                  to_string(bit_count_) + " minimum_bits=8");
+                                  std::to_string(bit_count_) + " minimum_bits=8");
 }
 
-void BloomFilter::Add(const string& key) {
-    vector<size_t> indices = HashIndices(key);
+void BloomFilter::Add(const std::string& key) {
+    std::vector<size_t> indices = HashIndices(key);
     TraceLogger::Log("BLOOM", "Insert key=" + key + " indices=" +
                                   IndicesForLog(indices));
-    for (size_t index : indices) {
-        bits_[index] = true;
+    for (size_t i = 0; i < indices.size(); ++i) {
+        bits_[indices[i]] = true;
     }
 }
 
-bool BloomFilter::MightContain(const string& key) const {
-    vector<size_t> indices = HashIndices(key);
+bool BloomFilter::MightContain(const std::string& key) const {
+    std::vector<size_t> indices = HashIndices(key);
     TraceLogger::Log("BLOOM", "Check key=" + key + " indices=" +
                                   IndicesForLog(indices));
-    for (size_t index : indices) {
+    for (size_t i = 0; i < indices.size(); ++i) {
+        size_t index = indices[i];
         if (!bits_[index]) {
             TraceLogger::Log("BLOOM", "negative => missing bit at index=" +
-                                          to_string(index));
+                                          std::to_string(index));
             return false;
         }
     }
@@ -66,8 +64,8 @@ bool BloomFilter::MightContain(const string& key) const {
     return true;
 }
 
-vector<uint8_t> BloomFilter::Serialize() const {
-    vector<uint8_t> bytes((bit_count_ + 7) / 8, 0);
+std::vector<uint8_t> BloomFilter::Serialize() const {
+    std::vector<uint8_t> bytes((bit_count_ + 7) / 8, 0);
 
     for (size_t i = 0; i < bit_count_; ++i) {
         if (bits_[i]) {
@@ -76,17 +74,16 @@ vector<uint8_t> BloomFilter::Serialize() const {
     }
 
     TraceLogger::Log("BLOOM", "Serialized Bloom filter bytes=" +
-                                  to_string(bytes.size()) + " bit_count=" +
-                                  to_string(bit_count_));
+                                  std::to_string(bytes.size()) + " bit_count=" +
+                                  std::to_string(bit_count_));
     return bytes;
 }
 
-BloomFilter BloomFilter::Deserialize(size_t bit_count,
-                                     const vector<uint8_t>& bytes) {
+BloomFilter BloomFilter::Deserialize(size_t bit_count, const std::vector<uint8_t>& bytes) {
     BloomFilter filter(bit_count);
     TraceLogger::Log("BLOOM", "Deserializing Bloom filter bytes=" +
-                                  to_string(bytes.size()) + " bit_count=" +
-                                  to_string(bit_count));
+                                  std::to_string(bytes.size()) + " bit_count=" +
+                                  std::to_string(bit_count));
     for (size_t i = 0; i < filter.bit_count_; ++i) {
         bool is_set =
             i / 8 < bytes.size() &&
@@ -101,16 +98,16 @@ size_t BloomFilter::BitCount() const {
     return bit_count_;
 }
 
-vector<size_t> BloomFilter::HashIndices(const string& key) const {
-    return {
-        HashDJB2(key) % bit_count_,
-        HashFNV1a(key) % bit_count_,
-        HashRotate(key) % bit_count_,
-    };
+std::vector<size_t> BloomFilter::HashIndices(const std::string& key) const {
+    std::vector<size_t> indices;
+    indices.push_back(HashDJB2(key) % bit_count_);
+    indices.push_back(HashFNV1a(key) % bit_count_);
+    indices.push_back(HashRotate(key) % bit_count_);
+    return indices;
 }
 
-string BloomFilter::IndicesForLog(const vector<size_t>& indices) const {
-    ostringstream stream;
+std::string BloomFilter::IndicesForLog(const std::vector<size_t>& indices) const {
+    std::ostringstream stream;
     stream << "[";
     for (size_t i = 0; i < indices.size(); ++i) {
         if (i > 0) {

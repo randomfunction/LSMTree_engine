@@ -2,27 +2,24 @@
 
 #include <cstddef>
 #include <map>
-#include <optional>
 #include <string>
-
-using namespace std;
 
 class MemTable {
 public:
-    static const string kTombstone;
+    static const std::string kTombstone;
 
-    void Set(const string& key, const string& value);
-    void Delete(const string& key);
+    void Set(const std::string& key, const std::string& value);
+    void Delete(const std::string& key);
 
-    bool Contains(const string& key) const;
-    bool IsDeleted(const string& key) const;
-    optional<string> Get(const string& key) const;
+    bool Contains(const std::string& key) const;
+    bool IsDeleted(const std::string& key) const;
+    bool Get(const std::string& key, std::string& value) const;
 
     size_t Size() const;
     bool Empty() const;
     void Clear();
-    const map<string, string>& Data() const;
+    const std::map<std::string, std::string>& Data() const;
 
 private:
-    map<string, string> table_;
+    std::map<std::string, std::string> table_;
 };

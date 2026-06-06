@@ -5,22 +5,20 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
-namespace {
-
-string Show(optional<string> value) {
-    return value.has_value() ? *value : "Not Found";
+std::string ShowValue(LSMEngine& engine, const std::string& key) {
+    std::string value;
+    if (engine.Get(key, value)) {
+        return value;
+    }
+    return "Not Found";
 }
 
-}  // namespace
-
 int main() {
-    const string data_directory = "small_test_data";
-    filesystem::remove_all(data_directory);
+    const std::string data_directory = "small_test_data";
+    std::filesystem::remove_all(data_directory);
 
-    cout << "LSM TREE SMALL TEST\n";
-    cout << "-------------------\n";
+    std::cout << "LSM TREE SMALL TEST\n";
+    std::cout << "-------------------\n";
 
     {
         LSMEngine engine(data_directory, 3, 128, false);
@@ -31,32 +29,33 @@ int main() {
         engine.Delete("banana");
         engine.Set("date", "brown");
 
-        cout << "Run 1\n";
-        cout << "  apple  -> " << Show(engine.Get("apple")) << '\n';
-        cout << "  banana -> " << Show(engine.Get("banana")) << '\n';
-        cout << "  date   -> " << Show(engine.Get("date")) << '\n';
+        std::cout << "Run 1\n";
+        std::cout << "  apple  -> " << ShowValue(engine, "apple") << '\n';
+        std::cout << "  banana -> " << ShowValue(engine, "banana") << '\n';
+        std::cout << "  date   -> " << ShowValue(engine, "date") << '\n';
     }
 
     {
         LSMEngine engine(data_directory, 3, 128, false);
 
-        cout << "Run 2 (after restart)\n";
-        cout << "  apple  -> " << Show(engine.Get("apple")) << '\n';
-        cout << "  banana -> " << Show(engine.Get("banana")) << '\n';
-        cout << "  carrot -> " << Show(engine.Get("carrot")) << '\n';
-        cout << "  date   -> " << Show(engine.Get("date")) << '\n';
+        std::cout << "Run 2 (after restart)\n";
+        std::cout << "  apple  -> " << ShowValue(engine, "apple") << '\n';
+        std::cout << "  banana -> " << ShowValue(engine, "banana") << '\n';
+        std::cout << "  carrot -> " << ShowValue(engine, "carrot") << '\n';
+        std::cout << "  date   -> " << ShowValue(engine, "date") << '\n';
     }
 
-    vector<string> files;
-    for (const auto& entry : filesystem::directory_iterator(data_directory)) {
-        if (entry.is_regular_file()) {
-            files.push_back(entry.path().filename().string());
+    std::vector<std::string> files;
+    std::filesystem::directory_iterator end_it;
+    for (std::filesystem::directory_iterator it(data_directory); it != end_it; ++it) {
+        if (it->is_regular_file()) {
+            files.push_back(it->path().filename().string());
         }
     }
 
-    cout << "Files\n";
-    for (const string& file : files) {
-        cout << "  - " << file << '\n';
+    std::cout << "Files\n";
+    for (size_t i = 0; i < files.size(); ++i) {
+        std::cout << "  - " << files[i] << '\n';
     }
 
     return 0;

@@ -2,21 +2,14 @@
 
 #include <algorithm>
 #include <iostream>
-#include <utility>
-
-using namespace std;
-
-namespace {
 
 bool g_enabled = true;
 int g_indent = 0;
 LifecycleStats g_stats;
 
-string IndentPrefix() {
-    return string(static_cast<size_t>(max(g_indent, 0)) * 2, ' ');
+std::string IndentPrefix() {
+    return std::string(static_cast<size_t>(std::max(g_indent, 0)) * 2, ' ');
 }
-
-}  // namespace
 
 void TraceLogger::SetEnabled(bool enabled) {
     g_enabled = enabled;
@@ -27,7 +20,7 @@ bool TraceLogger::Enabled() {
 }
 
 void TraceLogger::ResetStats() {
-    g_stats = {};
+    g_stats = LifecycleStats();
 }
 
 LifecycleStats TraceLogger::Stats() {
@@ -54,12 +47,12 @@ void TraceLogger::AddTombstonesRemoved(uint64_t count) {
     g_stats.tombstones_removed += count;
 }
 
-void TraceLogger::Log(const string& category, const string& message) {
+void TraceLogger::Log(const std::string& category, const std::string& message) {
     if (!g_enabled) {
         return;
     }
 
-    cout << "[" << category << "] " << IndentPrefix() << message << '\n';
+    std::cout << "[" << category << "] " << IndentPrefix() << message << '\n';
 }
 
 void TraceLogger::PushIndent() {
@@ -67,11 +60,11 @@ void TraceLogger::PushIndent() {
 }
 
 void TraceLogger::PopIndent() {
-    g_indent = max(g_indent - 1, 0);
+    g_indent = std::max(g_indent - 1, 0);
 }
 
-TraceScope::TraceScope(string category, string message)
-    : category_(move(category)) {
+TraceScope::TraceScope(const std::string& category, const std::string& message)
+    : category_(category) {
     TraceLogger::Log(category_, "ENTER " + message);
     TraceLogger::PushIndent();
 }
