@@ -1,5 +1,12 @@
 # LSM-Tree Key-Value Storage Engine
 
+[![C++](https://img.shields.io/badge/C%2B%2B-17-00599C?style=flat-square&logo=cplusplus&logoColor=white)](https://isocpp.org/)
+[![CMake](https://img.shields.io/badge/Build-CMake-064F8C?style=flat-square&logo=cmake&logoColor=white)](https://cmake.org/)
+[![LSM Tree](https://img.shields.io/badge/Storage-LSM--Tree-4B5563?style=flat-square)]()
+[![WAL](https://img.shields.io/badge/Durability-WAL-16A34A?style=flat-square)]()
+[![SSTable](https://img.shields.io/badge/On--Disk-SSTable-F59E0B?style=flat-square)]()
+[![Bloom Filter](https://img.shields.io/badge/Indexing-Bloom_Filter-8B5CF6?style=flat-square)]()
+
 A simplified, single-threaded key-value storage engine in C++ based on core LSM-Tree ideas.
 
 This project was built to show a clear understanding of how modern storage engines handle writes, reads, recovery, and on-disk data organization. The implementation is intentionally simple and educational, but it still includes the main building blocks that make an LSM-based design work.
