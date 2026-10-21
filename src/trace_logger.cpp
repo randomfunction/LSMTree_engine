@@ -1,6 +1,8 @@
 #include "trace_logger.h"
 
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <string>
 using namespace std;
 
 bool g_enabled = true;

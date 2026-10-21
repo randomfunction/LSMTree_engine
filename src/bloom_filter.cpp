@@ -1,9 +1,13 @@
 #include "bloom_filter.h"
 #include "trace_logger.h"
 
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <sstream>
+#include <string>
+#include <vector>
 using namespace std;
-// using namespace BloomFilter;
 
 size_t BloomFilter::HashDJB2(const string& key) {
     size_t hash = 5381;

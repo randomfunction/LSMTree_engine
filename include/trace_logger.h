@@ -1,7 +1,7 @@
 #pragma once
 
-#include <bits/stdc++.h>
-using namespace std;
+#include <cstdint>
+#include <string>
 
 struct LifecycleStats {
     uint64_t wal_appends = 0;
@@ -25,16 +25,16 @@ public:
     static void IncrementCompactions();
     static void AddTombstonesRemoved(uint64_t count);
 
-    static void Log(const string& category, const string& message);
+    static void Log(const std::string& category, const std::string& message);
     static void PushIndent();
     static void PopIndent();
 };
 
 class TraceScope {
 public:
-    TraceScope(const string& category, const string& message);
+    TraceScope(const std::string& category, const std::string& message);
     ~TraceScope();
 
 private:
-    string category_;
+    std::string category_;
 };
