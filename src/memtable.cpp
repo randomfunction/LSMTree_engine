@@ -1,5 +1,7 @@
 #include "memtable.h"
-#include<bits/stdc++.h>
+
+#include <map>
+#include <string>
 
 using namespace std;
 

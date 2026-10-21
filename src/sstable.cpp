@@ -7,6 +7,22 @@
 #include <fstream>
 #include <stdexcept>
 
+#include <fcntl.h>
+#include <unistd.h>
+
+namespace {
+
+void FsyncPath(const std::string& path) {
+    int fd = open(path.c_str(), O_RDONLY);
+    if (fd < 0) {
+        return;
+    }
+    fsync(fd);
+    close(fd);
+}
+
+}
+
 const char kSSTableFooterMagic[8] = {'L', 'S', 'M', 'F', 'T', 'R', '0', '1'};
 const std::streamoff kSSTableFooterSize =
     static_cast<std::streamoff>(sizeof(uint64_t) * 5 + sizeof(kSSTableFooterMagic));
@@ -74,6 +90,7 @@ SSTable SSTable::CreateFromMap(const std::string& file_path,
     WriteUint64(output, static_cast<uint64_t>(filter.BitCount()));
     output.write(kSSTableFooterMagic, static_cast<std::streamsize>(sizeof(kSSTableFooterMagic)));
     output.close();
+    FsyncPath(file_path);
 
     return LoadFromFile(file_path);
 }

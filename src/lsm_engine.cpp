@@ -1,7 +1,34 @@
 #include "lsm_engine.h"
 
-#include <bits/stdc++.h>
+#include <cstdint>
+#include <filesystem>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <map>
+#include <memory>
+#include <sstream>
+#include <stdexcept>
+#include <string>
+#include <vector>
+
+#include <fcntl.h>
+#include <unistd.h>
+
 using namespace std;
+
+namespace {
+
+void FsyncPath(const string& path) {
+    int fd = open(path.c_str(), O_RDONLY);
+    if (fd < 0) {
+        return;
+    }
+    fsync(fd);
+    close(fd);
+}
+
+}
 
 LSMEngine::LSMEngine(const string& data_directory,
                      size_t memtable_flush_threshold,
@@ -13,18 +40,14 @@ LSMEngine::LSMEngine(const string& data_directory,
       memtable_flush_threshold_(memtable_flush_threshold),
       bloom_filter_bits_(bloom_filter_bits),
       next_file_number_(1),
-      verbose_(verbose),
-      wal_(0) {
+      verbose_(verbose) {
     TraceLogger::SetEnabled(verbose_);
     filesystem::create_directories(data_directory_);
-    wal_ = new WAL(wal_path_);
+    wal_ = make_unique<WAL>(wal_path_);
     Recover();
 }
 
-LSMEngine::~LSMEngine() {
-    delete wal_;
-    wal_ = 0;
-}
+LSMEngine::~LSMEngine() = default;
 
 void LSMEngine::Set(const string& key, const string& value) {
     wal_->AppendSet(key, value);
@@ -86,14 +109,16 @@ void LSMEngine::FlushMemTable() {
         return;
     }
 
+    TraceLogger::IncrementFlushes();
+
     string sstable_path = NextSSTablePath();
     SSTable sstable =
         SSTable::CreateFromMap(sstable_path, memtable_.Data(), bloom_filter_bits_);
     sstables_.push_back(sstable);
 
-    memtable_.Clear();
-    wal_->Reset();
     SaveManifest();
+    wal_->Reset();
+    memtable_.Clear();
     MaybeCompact();
 }
 
@@ -159,7 +184,9 @@ void LSMEngine::SaveManifest() const {
     }
 
     manifest.close();
+    FsyncPath(temp_manifest_path);
     filesystem::rename(temp_manifest_path, manifest_path_);
+    FsyncPath(data_directory_);
 }
 
 void LSMEngine::RecoverMemTableFromWAL() {
@@ -178,7 +205,6 @@ void LSMEngine::RecoverMemTableFromWAL() {
 
 void LSMEngine::MaybeFlushMemTable() {
     if (memtable_.Size() >= memtable_flush_threshold_) {
-        TraceLogger::IncrementFlushes();
         FlushMemTable();
     }
 }
@@ -234,17 +260,22 @@ we remove deleted keys while compactions.
     }
     TraceLogger::AddTombstonesRemoved(removed_tombstones);
 
+    vector<string> old_paths;
+    for (size_t i = 0; i < sstables_.size(); ++i) {
+        old_paths.push_back(sstables_[i].FilePath());
+    }
+
     string compacted_path = NextSSTablePath();
     SSTable compacted_table =
         SSTable::CreateFromMap(compacted_path, compacted_records, bloom_filter_bits_);
 
-    for (size_t i = 0; i < sstables_.size(); ++i) {
-        filesystem::remove(sstables_[i].FilePath());
-    }
-
     sstables_.clear();
     sstables_.push_back(compacted_table);
     SaveManifest();
+
+    for (size_t i = 0; i < old_paths.size(); ++i) {
+        filesystem::remove(old_paths[i]);
+    }
 }
 
 string LSMEngine::NextSSTablePath() {
