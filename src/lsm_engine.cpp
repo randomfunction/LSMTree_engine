@@ -40,6 +40,7 @@ LSMEngine::LSMEngine(const string& data_directory,
       memtable_flush_threshold_(memtable_flush_threshold),
       bloom_filter_bits_(bloom_filter_bits),
       next_file_number_(1),
+      next_sequence_(1),
       verbose_(verbose) {
     TraceLogger::SetEnabled(verbose_);
     filesystem::create_directories(data_directory_);
@@ -54,22 +55,24 @@ void LSMEngine::Set(const string& key, const string& value) {
 
     // The WAL is written first so a crash can replay the change before the
     // MemTable is flushed into an SSTable.
-    memtable_.Set(key, value);
+    memtable_.Set(key, value, next_sequence_++);
     MaybeFlushMemTable();
 }
 
 void LSMEngine::Delete(const string& key) {
     wal_->AppendDelete(key);
-    memtable_.Delete(key);
+    memtable_.Delete(key, next_sequence_++);
     MaybeFlushMemTable();
 }
 
 bool LSMEngine::Get(const string& key, string& value) const {
-    if (memtable_.Contains(key)) {
-        if(memtable_.IsDeleted(key)) {
-            return false;
-        }
-        return memtable_.Get(key, value);
+    MemTable::LookupResult result =
+        memtable_.Get(key, MemTable::kMaxSequenceNumber, value);
+    if (result == MemTable::LookupResult::kFound) {
+        return true;
+    }
+    if (result == MemTable::LookupResult::kDeleted) {
+        return false;
     }
 
     // Newer SSTables are checked first because they contain more recent
@@ -112,8 +115,9 @@ void LSMEngine::FlushMemTable() {
     TraceLogger::IncrementFlushes();
 
     string sstable_path = NextSSTablePath();
+    map<string, string> snapshot = memtable_.SnapshotForFlush();
     SSTable sstable =
-        SSTable::CreateFromMap(sstable_path, memtable_.Data(), bloom_filter_bits_);
+        SSTable::CreateFromMap(sstable_path, snapshot, bloom_filter_bits_);
     sstables_.push_back(sstable);
 
     SaveManifest();
@@ -196,9 +200,9 @@ void LSMEngine::RecoverMemTableFromWAL() {
     for (size_t i = 0; i < records.size(); ++i) {
         const WALRecord& record = records[i];
         if (record.type == WALOperationType::Set) {
-            memtable_.Set(record.key, record.value);
+            memtable_.Set(record.key, record.value, next_sequence_++);
         } else {
-            memtable_.Delete(record.key);
+            memtable_.Delete(record.key, next_sequence_++);
         }
     }
 }
