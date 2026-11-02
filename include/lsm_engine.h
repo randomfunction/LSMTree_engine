@@ -49,6 +49,7 @@ private:
     size_t memtable_flush_threshold_;
     size_t bloom_filter_bits_;
     uint64_t next_file_number_;
+    uint64_t next_sequence_;
     bool verbose_;
 
     MemTable memtable_;
